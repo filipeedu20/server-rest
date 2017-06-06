@@ -151,5 +151,23 @@ class Arquivo_model extends CI_Model {
         // retornamos as informações sobre o status do procedimento
         return $response;
     }
-
+    // Retorna informações do arquivo para realização do download
+    public function retornaDownload($idArquivo){
+        $this->db->from('arquivo');        
+        $this->db->where('id_arquivo', $idArquivo);
+        return $this->db->get()->row();
+    }
+    /**
+    * Realiza alterando interna do sistema 
+    */
+    public function alterar($idArquivo,$dados){                
+        $this->db->where('id_arquivo', $idArquivo);        
+        $this->db->update('arquivo', $dados);                
+        // verifica se houve alteração no sistema 
+        if($this->db->affected_rows()>=1){
+            return true;
+        }else{
+            return false;
+        }        
+    }
 }

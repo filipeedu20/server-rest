@@ -1,0 +1,24 @@
+/*retorno de mensagem*/
+.retorno_pesquisa{
+   
+}
+.pesquisa{
+   margin-top:5px;
+   border: solid 1px #CCC;
+   min-height: 150px; 
+   padding: 10px;   
+}
+.descricao{
+   border-top: 1px #CCC solid;   
+   padding-top:5px;
+   min-height: 20px;
+   margin-top:10px;
+}
+.nome_arquivo{margin-top:10px;}
+.pesquisa2{
+   margin-top:2px;
+   background:#ccc; 
+   min-height: 50px; 
+   padding-top: 10px;
+}
+body { padding-bottom: 70px; }}

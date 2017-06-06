@@ -26,12 +26,13 @@ class Arquivo extends REST_Controller {
         $id = (string) $this->uri->segment(3);
         // Valida o ID
         if (empty($id))
-        {
+        {            
             // Lista os Arquivos 
-            $arquivo = $this->ArquivoMDL->GetAll('id_arquivo, nome_sistema, nome_dir, descricao');
+            $arquivo = $this->ArquivoMDL->GetAll('id_arquivo, nome_sistema, nome_dir, descricao, num_download');
         } else {
-            // Lista os dados do usuário conforme o ID solicitado
-            $arquivo = $this->ArquivoMDL->GetById($id);
+            //  busca arquivo pelo nome            
+            $nome = str_replace("_"," ",$id);
+            $arquivo = $this->ArquivoMDL->GetById($nome);
         }
 
         // verifica se existem usuários e faz o retorno da requisição
@@ -68,21 +69,19 @@ class Arquivo extends REST_Controller {
         }
 
         // processa o insert no banco de dados
-        $insert = $this->ArquivoMDL->Insert($arquivo);
-        // define a mensagem do processamento
-        $response['message'] = $insert['message'];        
-        // verifica o status do insert para retornar o cabeçalho corretamente
-        // e a mensagem
+        $insert = $this->ArquivoMDL->Insert($arquivo);                
+        $response['message'] = array('mensagem'=>$insert['message'],'retorno'=>'sucesso');                        
         if ($insert['status']) {
             $this->response($response, REST_Controller::HTTP_OK);
-        } else {
+        } else {            
+            $response['message'] = array('mensagem'=>$insert['message'],'retorno'=>'erro');                        
              $this->response($response);
             // $this->response($response, REST_Controller::HTTP_BAD_REQUEST);
         }
     }
 
     /*
-     * Essa função vai responder pela rota /api/usuarios sob o método POST
+     * Usada para retornar informações de intens selecionados 
      */
     public function index_put()
     {
@@ -132,7 +131,7 @@ class Arquivo extends REST_Controller {
     }
 
     /**
-     * Executa o upload da imagem
+     * Executa o upload do arquivo
      * @param string $input_name nome do campo "file" no formulário
      * @return array
      */
@@ -153,7 +152,7 @@ class Arquivo extends REST_Controller {
         // Diretório para gravar a imagem
         $configUpload['upload_path']   = $path;
         // Tipos de imagem permitidos
-        $configUpload['allowed_types'] = 'jpg|jpeg|png|pdf|docx';
+        $configUpload['allowed_types'] = 'jpg|jpeg|pdf|png';
         // Usar nome de arquivo aleatório, ignorando o nome original do arquivo
         $configUpload['encrypt_name']  = TRUE;
 
@@ -175,5 +174,12 @@ class Arquivo extends REST_Controller {
         }
 
         return $data;
+    }
+    /**
+    *Realiza a busca de arquivos 
+    *@return arquivos buscado pelo form 
+    */
+    public function pesquisa(){
+
     }
 }

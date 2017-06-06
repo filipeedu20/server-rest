@@ -7,6 +7,11 @@ class Arquivo extends CI_Controller {
 	{
 		
 	}
+	// Página inicial 
+	public function inicio(){
+		$data['titulo'] = "Sistema de Gerenciamento de arquivos";
+		$this->load->view('inicio', $data);
+	}
 
 	// Página para envio de arquivo 
 	public function envia_arquivo(){
@@ -17,6 +22,19 @@ class Arquivo extends CI_Controller {
 		$data['titulo'] = "Exibição de arquivos ";		
 		$this->load->view('view_all_files', $data);
 	}
+	// Página de download e pesquisa dos arquivos
+	public function pesquisa_arquivo(){		
+		// carrega helper para fazer download
+		$this->load->helper('download');
+		$data['titulo'] = "Exibição de arquivos ";		
+		$this->load->view('pesquisa_arquivo', $data);		
+	}
+	public function add_arquivo(){
+		
+		$data['titulo'] = "Adicionar Arquivo ";		
+		$this->load->view('add_arquivo', $data);		
+	}
+	 
 
 }
 
