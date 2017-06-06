@@ -47,13 +47,8 @@
                 <li><a href="<?php echo base_url('arquivo/add_arquivo');?>">adicionar arquivo </a></li>
             </ul>
         </div>
-     </nav>
-      <div>
-         <a href="<?php echo base_url('arquivo/inicio');?>">inicio</a> - 
-         <a href="<?php echo base_url('arquivo/pesquisa_arquivo');?>">pesquisar</a> - 
-         <a href="<?php echo base_url('arquivo/add_arquivo');?>">adicionar arquivo </a> - 
-      </div>
-         <h1>Sistema de Gerencimento de Arquivos </h1>
+     </nav>      
+     <h1>Sistema de Gerencimento de Arquivos </h1>
       <div class='col-lg-12'>
          
       </div>
