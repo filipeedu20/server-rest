@@ -20,7 +20,7 @@ class Arquivo extends REST_Controller {
      */
     public function index_get(){
         // Recebe id passada pela url
-        $id = (string) $this->uri->segment(3);
+        $nome_p = (string) $this->uri->segment(3);
         // Valida o ID
         if (empty($nome_p))
         {            
