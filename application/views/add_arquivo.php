@@ -2,41 +2,12 @@
    <head>
       <title></title>   
       <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.css">
+      <link rel="stylesheet" href="<?php echo base_url()?>assets/css/complemento.css">
    </head>
    <body>     
-   <script src="<?php echo base_url()?>assets/js/jquery.js"></script>
+    <script src="<?php echo base_url()?>assets/js/jquery.js"></script>   
     <script src="<?php echo base_url()?>assets/js/jquery.form.js"></script>
-   <script>
-      $(document).ready(function() {  
-         // url do servidor rest
-         var url_e ='http://projetos/rest-server/api/arquivo/';      
-         // FORMULARIO DE ENVIO DE ARQUIVO         
-         $("#envia_form").submit(function(){
-          //  limpa retornos anteriores
-          $(".result").remove();
-          $('.retorno_erro').hide();  
-          $('.retorno_successo').hide();    
-          
-          $('#envia_form').ajaxSubmit({
-              url  : url_e,
-              type : 'POST',
-              success:function(data){   
-                // verifica se houve sucesso
-                if(data.message.retorno=='sucesso'){                             
-                    $('.retorno_successo').show();            
-                    $('.alert-success').append("<div class='result'>"+data.message.mensagem+"</div>");
-                }else{
-                  $('.retorno_erro').show();  
-                  $('.alert-danger').append("<div class='result'>"+data.message.mensagem+"</div>");
-                }                
-              },
-              dataType:"json"
-          });
-          return false;
-         });
-      });
-   </script>   
-  
+    <script src="<?php echo base_url()?>assets/js/functions.js"></script>
      <div class='container'>
      <!--menu da aplicação -->
      <nav class="navbar navbar-default container-fluid">
@@ -48,9 +19,9 @@
             </ul>
         </div>
      </nav>      
-         <h1>Adicionar Arquivo</h1>
-      <div class='col-lg-12'>
-      <!-- retorno de mensagem  -->
+         <h1>Adicionar Arquivo</h1>         
+      <div class='col-lg-12 pagina'>      
+      <!-- retorno de mensagens  -->
       <div class="retorno_successo"  style='display:none'>
         <!--retorno se a operação ocorreu com sucesso -->
         <div class="alert alert-success">
@@ -60,11 +31,11 @@
       <div class="retorno_erro" style='display:none'>        
         <!--retorno se a operação ocorreu com sucesso -->
         <div class="alert alert-danger" >
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>          
-          
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>                    
         </div>        
       </div>  
-         <div class="conteudo col-lg-12">              
+        <div class='cont'>
+           <div class="conteudo col-lg-12">              
             <form class="form-horizontal" method="POST"  id="envia_form" enctype="multipart/form-data">            
             <hr>
             <div class="input-group">
@@ -86,7 +57,18 @@
                </div>	  	
             </form>
          </div>
+        </div>
       </div>      
      </div>      
+      <script>
+    // validação do formulário
+    $(document).ready(function(){
+      $('.form-horizontal').validate({
+          messages:{arquivo: { required: ' Faça o upload do arquivo.'}},
+          rules:{arquivo: { required:true},}
+        });
+      });
+     </script>
+     <script src="<?php echo base_url();?>assets/js/jquery.validate.js"></script>
    </body>
 </html>

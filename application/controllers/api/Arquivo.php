@@ -1,5 +1,4 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
 
@@ -12,26 +11,25 @@ class Arquivo extends REST_Controller {
         $this->load->model('Arquivo_model','ArquivoMDL');
 
         // Configuração para os limites de requisições (por hora)
-        $this->methods['index_get']['limit'] = 10; 
-        
+        $this->methods['index_get']['limit'] = 10;         
     }
 
     /*
      * Responde pela rota /api/arquivo sob o método GET
+     * Rertorna todos os arquivos, se for passado um nome retorna somente arquivo especificado.
      */
-    public function index_get()
-    {
-
+    public function index_get(){
         // Recebe id passada pela url
         $id = (string) $this->uri->segment(3);
         // Valida o ID
-        if (empty($id))
+        if (empty($nome_p))
         {            
-            // Lista os Arquivos 
+            //Informações dos arquivos que serão retornados 
             $arquivo = $this->ArquivoMDL->GetAll('id_arquivo, nome_sistema, nome_dir, descricao, num_download');
         } else {
-            //  busca arquivo pelo nome            
-            $nome = str_replace("_"," ",$id);
+            //busca arquivo pelo nome            
+            $nome = str_replace("_"," ",$nome_p);
+            // recebe informações dos arquivos 
             $arquivo = $this->ArquivoMDL->GetById($nome);
         }
 
@@ -57,7 +55,6 @@ class Arquivo extends REST_Controller {
         // verifica se a arquivo foi selecionada e faz o processamento
         if (isset($_FILES['arquivo'])) {
             $upload = $this->UploadArquivo('arquivo');
-
             // se ocorreu algum erro no upload, retorna a mensagem de erro
             // em caso de sucesso, armazena o path na variável $arquivo
             if ($upload['error']) {
@@ -75,25 +72,23 @@ class Arquivo extends REST_Controller {
             $this->response($response, REST_Controller::HTTP_OK);
         } else {            
             $response['message'] = array('mensagem'=>$insert['message'],'retorno'=>'erro');                        
-             $this->response($response);
-            // $this->response($response, REST_Controller::HTTP_BAD_REQUEST);
+             $this->response($response);            
         }
     }
 
     /*
-     * Usada para retornar informações de intens selecionados 
+     * Usada para alterar informações de intens selecionados 
      */
     public function index_put()
     {
         // recupera os dados informado no formulário
-        $usuario = $this->put();
-        $usuario_id = $this->uri->segment(3);
+        $arquivo = $this->put();
+        $arquivo_id = $this->uri->segment(3);
 
         // processa o update no banco de dados
-        $update = $this->UsuariosMDL->Update('id',$usuario_id, $usuario);
-        // define a mensagem do processamento
+        $update = $this->UsuariosMDL->Update('id',$arquivo_id, $arquivo);
+        // define a mensagem de retorno
         $response['message'] = $update['message'];
-
         // verifica o status do update para retornar o cabeçalho corretamente
         // e a mensagem
         if ($update['status']) {
@@ -104,7 +99,7 @@ class Arquivo extends REST_Controller {
     }
 
     /*
-     * Essa função vai responder pela rota /api/usuarios sob o método DELETE
+     * Responsável por deletar um registro
      */
     public function index_delete()
     {
@@ -117,12 +112,11 @@ class Arquivo extends REST_Controller {
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400)
         }
         // Executa a remoção do registro no banco de dados
-        $delete = $this->UsuariosMDL->Delete('id',$id);
+        $delete = $this->ArquivoMDL->Delete('id',$id);
 
         // define a mensagem do processamento
         $response['message'] = $delete['message'];
-        // verifica o status do insert para retornar o cabeçalho corretamente
-        // e a mensagem
+        // verifica o status do insert para retornar o cabeçalho corretamente        
         if ($delete['status']) {
             $this->response($response, REST_Controller::HTTP_OK);
         } else {
@@ -152,9 +146,10 @@ class Arquivo extends REST_Controller {
         // Diretório para gravar a imagem
         $configUpload['upload_path']   = $path;
         // Tipos de imagem permitidos
-        $configUpload['allowed_types'] = 'jpg|jpeg|pdf|png';
+        $configUpload['allowed_types'] = 'pdf|doc|txt|docx|';
         // Usar nome de arquivo aleatório, ignorando o nome original do arquivo
         $configUpload['encrypt_name']  = TRUE;
+        $configUpload['max_size'] = 1024; //define tamanho máximo do arquivo
 
         // Aplica as configurações e inicializa a biblioteca
         $this->upload->initialize($configUpload);
@@ -174,12 +169,5 @@ class Arquivo extends REST_Controller {
         }
 
         return $data;
-    }
-    /**
-    *Realiza a busca de arquivos 
-    *@return arquivos buscado pelo form 
-    */
-    public function pesquisa(){
-
-    }
+    }    
 }

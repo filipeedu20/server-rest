@@ -1,7 +1,6 @@
 <?php
-
+// Responsável por manipular o banco de dados 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Arquivo_model extends CI_Model {
 
     public function __construct()
@@ -40,9 +39,9 @@ class Arquivo_model extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    /*
+    /**
      * Método que irá fazer a validação dos dados e processar o insert na tabela
-     * recebe como parâmetro o array com os dados vindos do formulário
+     * @param array com informações vindas do formulário
      */
     function Insert($dados)
     {
