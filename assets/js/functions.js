@@ -63,13 +63,13 @@ $('#pesquisa_arquivo').submit(function(){
    var nome_arquivo  = $('.nome_arquivo').val();                   
    var nome= nome_arquivo.replace(" ","_");                           
    var url_pesquisa = url_e+''+nome;
-   var i = 0; 
-   console.log("es");
-   $.ajax({
+   console.log(nome_arquivo);
+   if(nome_arquivo){
+      $.ajax({
       type:"GET",            
       url: url_pesquisa, //adiciona o nome do arquivo na url de pesquisa                       
       success: function(d){ 
-         $('.exibe_pesquisa').show();
+         $('.exibe_pesquisa_form').show();
          $(".retorno_pesquisa").hide();
          //fecha loader
          $(".loader").hide();
@@ -78,7 +78,7 @@ $('#pesquisa_arquivo').submit(function(){
             for(i=0; d.data.length>i; i++){
                // adiciona elemento na url para realizar o download
                var link_download =url_download+''+d.data[i].id_arquivo;
-                  $('.exibe_pesquisa').append(
+                  $('.exibe_pesquisa_form').append(
                      "<div class='pesquisa'><div class='col-lg-6'><a href='"+link_download+"' class='btn btn-success'>Download</a></div>"+
                      "<div class='col-lg-6'> <strong>Downloads:</strong> "+d.data[i].num_download+"</div>"+
                      "<div class='col-lg-12 nome_arquivo'> <strong>Nome do Arquivo:</strong> "+d.data[i].nome_sistema+"</div>"+
@@ -87,7 +87,7 @@ $('#pesquisa_arquivo').submit(function(){
                }                         
             }else{
                $(".retorno_pesquisa").show();
-               $('.exibe_pesquisa').hide();
+               $('.exibe_pesquisa_form').hide();
                $(".retorno_pesquisa").text("Nenhum arquivo encontrado");                                
             }                     
          },   
@@ -95,8 +95,9 @@ $('#pesquisa_arquivo').submit(function(){
             $('.conteudo').append("<div class='loader'></div>");
             } ,                                    
             dataType: "Json",            
-      });
-      return false;
+      });//fim ajax
+   }//fim if
+return false;
 });
       // FORMULARIO DE ENVIO DE ARQUIVO         
 $("#envia_form").submit(function(){

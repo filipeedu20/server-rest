@@ -12,6 +12,13 @@
    min-height: 150px; 
    padding: 10px;   
 }
+/*itens de pesquisa do form */
+.pesquisa_form{
+   margin-top:5px;
+   border: solid 1px #CCC;
+   min-height: 150px; 
+   padding: 10px;   
+}
 .descricao{
    border-top: 1px #CCC solid;   
    padding-top:5px;
