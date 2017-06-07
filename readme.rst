@@ -1,4 +1,14 @@
 ###################
+Aplicação desenvolvida para a disciplina de Tecnologias Web
+###################
+
+Funções:
+    - Adicionar arquivos
+    - Pesquisar por arquivos do servidor REST
+    - Fazer download de arquivos 
+
+
+###################
 What is CodeIgniter
 ###################
 
