@@ -1,9 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 require APPPATH . '/libraries/REST_Controller.php';
-
 use Restserver\Libraries\REST_Controller;
-
 class Arquivo extends REST_Controller {
     function __construct()
     {
@@ -75,7 +73,6 @@ class Arquivo extends REST_Controller {
              $this->response($response);            
         }
     }
-
     /*
      * Usada para alterar informações de intens selecionados 
      */

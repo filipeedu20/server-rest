@@ -2,8 +2,7 @@
    <head>
       <title><?php echo $titulo;?></title>     
       <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.css">
-      <link rel="stylesheet" href="<?php echo base_url()?>assets/css/complemento.css">
-      
+      <link rel="stylesheet" href="<?php echo base_url()?>assets/css/complemento.css">      
    </head>
    <body>
    <script src="<?php echo base_url();?>assets/js/jquery.js"></script>   
@@ -20,18 +19,15 @@
             </ul>
         </div>
      </nav>
-    
      <h1>Pesquisa de Arquivos</h1>
-      <div class='col-lg-12 conteudo'>      
-         <form  id="pesquisa_arquivo" name="pesquisa_arquivo"> 
-            <div class="form-group col-lg-10">
-                <input type="text" class="form-control nome_arquivo" name="nome_arquivo">                
+      <div class='conteudo'>      
+        <form  id="pesquisa_arquivo" name="pesquisa_arquivo" class="form-inline" role="form">
+            <div class="form-group">                
+                <input type="text" size='50'class="form-control nome_arquivo" name="nome_arquivo">                
             </div>             
-            <div class="form-group col-lg-2">
-                <input type="submit" value="Pesquisar" class='btn btn-primary'> 
-            </div>             
-         </form>
-      </div>
+            <input type="submit" value="Pesquisar" class='btn btn-primary'>             
+         </form>         
+      </div>      
       <!-- recebe itens da pesquisa  -->
       <div class="exibe_pesquisa_form col-lg-12">     
       </div>
