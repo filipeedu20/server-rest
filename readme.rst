@@ -7,6 +7,7 @@ Funções:
     - Pesquisar por arquivos do servidor REST
     - Fazer download de arquivos 
 
+Biblioteca REST usada : https://github.com/chriskacerguis/codeigniter-restserver
 
 ###################
 What is CodeIgniter
